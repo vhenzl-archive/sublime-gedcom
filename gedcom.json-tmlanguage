@@ -1,0 +1,44 @@
+{ "name": "GEDCOM",
+  "scopeName": "source.gedcom",
+  "fileTypes": ["ged"],
+
+  "patterns": [
+    { "include": "#record" }
+  ],
+
+  "repository": {
+
+    "record": {
+      "begin": "^(0)",
+      "end": "(?=^0)",
+      "patterns": [
+        { "include": "#header" },
+        { "include": "#line" }
+      ],
+      "beginCaptures": {
+        "1": { "name": "comment.gedcom"}
+      }
+    },
+
+    "header": {  
+      "match": "(?<=0)\\s+(@[A-Z]+\\d+@\\s+)?([A-Z]+)",
+      "captures": {
+          "1": { "name": "constant.gedcom" },
+          "2": { "name": "keyword.gedcom" }
+      }
+    },
+
+    "line": {  
+      "match": "^(\\d+)\\s+([A-Z_]+)(\\s+((@[A-Z]+\\d+@)|(.+)))?",
+      "captures": {
+        "1": { "name": "comment.gedcom"},
+        "2": { "name": "storage.type.gedcom" },
+        "5": { "name": "constant.other.gedcom" },
+        "6": { "name": "string.other.gedcom" }
+      }
+    }
+    
+  },
+
+  "uuid": "9e3d3b24-4fcd-4a6a-8ddc-afa0df0f8131"
+}
